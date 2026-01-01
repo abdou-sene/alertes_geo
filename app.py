@@ -6,7 +6,6 @@ import geopandas as gpd
 import twilio
 from twilio.rest import Client
 
-
 # --- Twilio secrets ---
 TWILIO_ACCOUNT_SID = st.secrets["TWILIO_ACCOUNT_SID"]
 TWILIO_AUTH_TOKEN = st.secrets["TWILIO_AUTH_TOKEN"]
@@ -29,17 +28,19 @@ zones = gpd.read_file("data/zones_inondables.geojson")
 # Créer une carte centrée sur Dakar
 map = folium.Map(location=[14.6928, -17.4467], zoom_start=12)
 
-# Ajouter les zones inondables
-folium.GeoJson(
-    zones,
-    name="Zones inondables",
-    style_function=lambda x: {
-        "fillColor": "blue",
-        "color": "red",
-        "weight": 1,
-        "fillOpacity": 0.4,
-    },
-).add_to(map)
+
+# Ajouter chaque zone avec popup info
+for _, row in zones.iterrows():
+    folium.GeoJson(
+        row["geometry"],
+        style_function=lambda x: {
+            "fillColor": "red",
+            "color": "red",
+            "weight": 1,
+            "fillOpacity": 0.4,
+        },
+        tooltip=f"Nom: {row.get('nom_zone', 'Inconnu')}\nRisque: {row.get('risque', 'Inconnu')}",
+    ).add_to(map)
 
 # Affichage Streamlit
 st.title("Alertes Inondations - Prototype")
