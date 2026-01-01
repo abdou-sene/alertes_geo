@@ -5,7 +5,14 @@ import geopandas as gpd
 
 import twilio
 from twilio.rest import Client
-from twilio_config import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_FROM
+
+
+# --- Twilio secrets ---
+TWILIO_ACCOUNT_SID = st.secrets["TWILIO_ACCOUNT_SID"]
+TWILIO_AUTH_TOKEN = st.secrets["TWILIO_AUTH_TOKEN"]
+TWILIO_WHATSAPP_FROM = st.secrets["TWILIO_WHATSAPP_FROM"]
+
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 
 # Fonction d'envoi WhatsApp
