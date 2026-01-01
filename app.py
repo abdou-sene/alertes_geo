@@ -52,7 +52,7 @@ folium.GeoJson(
 
 
 # Affichage Streamlit
-st.title("Alertes Inondations - Prototype")
+st.title("ALERTTT Inondations - SENEGAL")
 st.write("Carte interactive des zones à risque")
 st_data = st_folium(map, width=700, height=500)
 
