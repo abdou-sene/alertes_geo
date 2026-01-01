@@ -1,5 +1,8 @@
+requests
 streamlit
 folium
+streamlit-folium
+pandas
 geopandas
 shapely
 twilio
