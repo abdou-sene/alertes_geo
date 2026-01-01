@@ -41,7 +41,7 @@ st_data = st_folium(map, width=700, height=500)
 
 # Bouton pour "recevoir alertes"
 numero_test = "+221781751168"
-message = "🌊 Alerte ! Zones inondables à surveiller ! Consulte la carte ici: https://sen-flood.streamlit.app"
+message = "🌊 Alerte ! Zones inondables à surveiller ! Consulte la carte ici: https://senflood.streamlit.app"
 if st.button("Je veux recevoir des alertes"):
     envoyer_whatsapp(numero_test, message)
     st.success("Merci ! Votre demande a été enregistrée (simulation MVP)")
