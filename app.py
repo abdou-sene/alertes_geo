@@ -29,7 +29,7 @@ zones = gpd.read_file("data/zones_inondables.geojson")
 map = folium.Map(location=[14.6928, -17.4467], zoom_start=12)
 
 
-# Ajouter chaque zone avec popup info
+# Ajouter chaque zone avec popup cliquable
 for _, row in zones.iterrows():
     folium.GeoJson(
         row["geometry"],
@@ -39,8 +39,13 @@ for _, row in zones.iterrows():
             "weight": 1,
             "fillOpacity": 0.4,
         },
-        tooltip=f"Nom: {row.get('nom_zone', 'Inconnu')}\nRisque: {row.get('risque', 'Inconnu')}",
+        popup=folium.Popup(
+            f"<b>Nom:</b> {row.get('nom_zone', 'Inconnu')}<br><b>Risque:</b> {row.get('risque', 'Inconnu')}",
+            max_width=300
+        ),
+        tooltip=f"Nom: {row.get('nom_zone', 'Inconnu')} - Risque: {row.get('risque', 'Inconnu')}",
     ).add_to(map)
+
 
 # Affichage Streamlit
 st.title("Alertes Inondations - Prototype")
