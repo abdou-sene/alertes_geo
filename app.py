@@ -29,22 +29,26 @@ zones = gpd.read_file("data/zones_inondables.geojson")
 map = folium.Map(location=[14.6928, -17.4467], zoom_start=12)
 
 
-# Ajouter chaque zone avec popup cliquable
-for _, row in zones.iterrows():
-    folium.GeoJson(
-        row["geometry"],
-        style_function=lambda x: {
-            "fillColor": "red",
-            "color": "red",
-            "weight": 1,
-            "fillOpacity": 0.4,
-        },
-        popup=folium.Popup(
-            f"<b>Nom:</b> {row.get('nom_zone', 'Inconnu')}<br><b>Risque:</b> {row.get('risque', 'Inconnu')}",
-            max_width=300
-        ),
-        tooltip=f"Nom: {row.get('nom_zone', 'Inconnu')} - Risque: {row.get('risque', 'Inconnu')}",
-    ).add_to(map)
+# Définir quelles propriétés afficher dans le popup
+popup_fields = ["SITE", "TYPE", "NATURE", "CARACTERIS"]
+
+# Ajouter le GeoJson avec popup cliquable
+folium.GeoJson(
+    zones,
+    style_function=lambda x: {
+        "fillColor": "red",
+        "color": "red",
+        "weight": 1,
+        "fillOpacity": 0.4,
+    },
+    popup=folium.GeoJsonPopup(
+        fields=popup_fields,
+        aliases=["Site:", "Type:", "Nature:", "Caractéristique:"],
+        localize=True,
+        labels=True,
+        style="background-color: white; border: 1px solid black; border-radius: 3px; padding: 5px;"
+    )
+).add_to(map)
 
 
 # Affichage Streamlit
