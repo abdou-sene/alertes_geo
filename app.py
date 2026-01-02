@@ -36,7 +36,7 @@ popup_fields = ["SITE", "TYPE", "NATURE", "CARACTERIS"]
 folium.GeoJson(
     zones,
     style_function=lambda x: {
-        "fillColor": "red",
+        "fillColor": "blue",
         "color": "red",
         "weight": 1,
         "fillOpacity": 0.4,
